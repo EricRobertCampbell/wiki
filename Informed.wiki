@@ -1,0 +1,30 @@
+= Informed =
+https://joepuzzo.github.io/informed/?path=/story/introduction--getting-started
+
+== Notes ==
+- Many components pass interesting things (APIs, &c.) to their render props.
+- Good way to find them: create an instance, then `debugger;`
+- To ensure that an ArrayField is never empty:
+{{{javascript
+<ArrayField field="...">
+	{({add, arrayFieldApi, arrayFieldState }) => {
+		if (arrayFieldState.fields.length === 0) {
+			arrayFieldApi.add();
+		}
+		return (
+			...
+		)
+	}}	
+</ArrayField>
+}}}
+
+=== Validation ===
+- `<Text validate={validate}`
+- `validate(value) => ...` takes the value and returns `undefined` if it is good and an error message otherwise
+- `validate(value, values) => ...` for more complex validation, can also take all of the other values in the form
+
+=== Formatting ===
+- `mask=` is a prop for fields, and the function is run on change
+- `format` and `parse` both need to be together
+	- 	`format` changes the displayed value
+	- `parse` takes the displayed value and convert it to the actual value stored in the `formState`

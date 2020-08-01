@@ -1,0 +1,68 @@
+= Salesforce =
+https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_list.htm
+
+== Notes ==
+- Get a developer account at the [developer portal](https://developer/salesforce.com)
+
+=== Using the API ===
+- REST API
+- `curl https://yourInstance.salesforce.com/data/services/data`
+- For a client to have access to the API, it needs to be authorized as a safe visitor
+- Do so by using a Connected App
+	1. [Setup] -> [Apps] -> [App Manager] -> New Connected App
+	2. Fill out the information
+	3. Add the OAuth authorizations
+	4. CORS?
+- When using the connected app, for the callback URL you seem to need to use the port: `https://localhost:3000`
+- To avoid CORS problems, you have to use the setting:
+	- [Setup] -> (Search for CORS) -> Add a rule (e.g. `https://localhost`)
+- You can access the secret &c. through [Setup] -> [Apps] -> [App Manager]
+- When making the call, make sure that the client ID 
+- [API Reference](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_list.htm)
+- `https://yourOrg.salesforce.com/services/data/sobjects` - a listing of all of the objects
+{{{javascript 
+{
+	...
+		sobjects: [
+		{
+			...
+			properties of the object...
+			...
+			name: This is how you refer to it! (Corresponds to 'API Name')
+		}
+		]
+}
+}}}
+- You can add an object by just sening a request to the REST enpoint with method post and the data 
+- Edit an object by sending a request to the REST endpoint associated with the ID of that object
+- Lots more examples [here](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/using_resources_working_with_records.htm)
+- Example of using an authorization endpoint to authorize can be found [here](https://developer.salesforce.com/blogs/developer-relations/2015/08/creating-jquery-application-using-rest-api.html)
+
+=== Errors and How To Fix Them ===
+- 400 (Bad Request) - Malformed endpoint in the request
+- 401 (Unauthorized) - seems to happen mostly when I forget to submit the authorization headers
+- 403 (Forbidden) - Understandable request, but was denied
+	- REQUEST_LIMIT_EXCEEDED - Too many API calls! 
+	- See # of API requests at [Setup] -> [Environments] -> [Monitoring] -> [System Overview]
+- 405: Method not allowed
+	- method (GET, POST, PATCH, &c.) is not correct for the request
+
+
+
+=== Trailhead - Salesforcec Platform Basics ===
+- App: Set of objects, fields, and other functionality the supports a business procvess
+- Object: tables in the Salesforce database
+	- Standard objectrs: Account, Contact, &c.
+	- Custom object: one that is different?
+- Records: rows in the database
+- Field: columns in the database
+- Org: Organization? (Specific Salesforce instance)
+	- A single company can have one or multiple
+- Trailhead playground (TP) - safe environment to practice
+- Declarative development: declare how things should be, and let the platform take care of how that gets done
+- Programmatic development: doing the actual coding
+- You can edit the different objects from the [Setup] -> [Object Manager] tab (Fields and Relationships)
+- AppExchange: App store for Salesforce
+- There are sandbox orgs for you to test things out in 
+	- The Developer Edition org is one such!
+

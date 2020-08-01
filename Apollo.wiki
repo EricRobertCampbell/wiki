@@ -1,0 +1,25 @@
+= Apollo =
+- `useMutation(query)` (from @apollo/client) creates a mutation
+	- Not automatically fired
+	- Syntax:
+	{{{javascript
+	const [addTodo, { data }] = useMutation(query);
+	}}}
+	- `addTodo` is the function you call to fire off the query (takes the normal variables, &c. that you would pass to a query)
+	- The other stuff that is passed back:
+		- `data`: the data passed back
+		- `loading`: Boolean (is it loading)
+		- `error`: Is there an error, and if so what is it
+		- `called`: Boolean (has the mutation been called)
+		- `client`: the client?
+- `useLazyQuery` returns an array
+	- First element: function to execute the query
+	- Second: various status stuff
+	{{{javascript
+	const [getDog, status] = useLazyQuery(QUERY);
+	...
+		getDog({
+		variables:...,
+		authorization:...,
+		})
+	}}}

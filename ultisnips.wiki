@@ -1,0 +1,4 @@
+= UltiSnips =
+https://github.com/SirVer/ultisnips
+https://www.sirver.net/blog/2011/12/30/first-episode-of-ultisnips-screencast/
+

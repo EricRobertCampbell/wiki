@@ -1,0 +1,103 @@
+= Redux =
+== Redux - freecodecamp ==
+-  Redux is a state manager
+-  Stores the entire state of the app in a store
+-  All state changes must go through this store
+-  (store is the single source of truth for the app)
+-  The store is created by calling the Redux.createStore(reducer) function
+-  All state changes are done by dispatching actions
+-  All actions must carry a state property, and may or may not contain data
+-  An action is just an object with the type property
+-  to dispatch the event, you just call the store.dispatch(ACTION) function
+-  to modify the state, you call a reducer.
+-  The reducer always has the form reducer(state, action) ... return state
+-  This is also a good place to specify the initial state of the state: reducer(state = initial, action)
+-  You can also do it by passing a second argument to the createStore function: Redux.createStore(reducer, initialState)
+-  Since you can have multiple reducers and all of them run whenever any action is dispatched, it's important to check if the current action is relevant to the current reducer and if not, just return the state as is so that it can be handled by something else
+-  You can also use the store.subscribe(function) method to register a listener. This listener is called whenever an action is dispatched to the store.
+-  Since the createStore function only accepts a single reducer, there is a way to combine multiple reducers into one
+-  Redux.combineReducers(obj)
+-  The obj looks like
+	
+	{{{javascript
+	{
+		auth: authReducer,
+		notes: noteReducer
+	}
+	}}}
+
+	The keys are used as the variable names in state, and the associated reducer function is responsible for setting the value of that variable
+	
+-  You can also use Redux Thunk middleware to handle aynchooronous events
+-  Syntax:
+ {{{javascript
+		const store - Redux.createStore(reducer, Redux.applyMiddleware(ReduxThunk.default));
+ }}}
+
+== Redux and React - freecodecamp ==
+-  In order to combine react and redux, you need to use the `react-redux' package
+-  (This provides the ReactRedux object)
+-  Provides a simple API to connect React and Redux
+-  Two main components:
+	-  Provider: Wrapper element for the app that provides it access to the store and dispatch functions throughout the component tree
+		-  It might look like:
+			{{{javascript
+				<Provider store={store}>
+					<App />
+				</Provider>
+			}}}	
+-  There are two functions which are used to pass parts of the state to the components as props or to allow the components to manipulate parts of the state:
+	-  mapStateToProps: 
+			-  takes state as an argument
+			-  returns an object in the form 
+					{{{javascript
+					{
+						varInProps: thingInState
+					}
+					}}}
+	-  mapDispatchToProps:
+			-  Used to provide action creators to components
+			-  Takes dispatch as an argument
+			-  Like mapStateToProps, it returns an object						
+			-  Maps dispatch actions to property names, which are then accessible by the component
+			-  e.g.
+					{{{javascript
+					{
+						submitUserLogin: function(username) {
+							dispatch(loginUser(username))
+						}
+					}
+					}}}
+
+				or
+
+				{{{javascript 
+				const mapDispatchToProps = dispatch => {
+					return {
+						submitNewMessage: (message => dispatch(addMessage(message))),
+					};
+				}
+				}}}
+	-  To use any of these, you need to map them to a component
+	-  Do this by using the connect() function
+	-  Takes two optional arguments: mapStateToProps and mapDispatchToProps
+	-  (To omit one, just pass in null)
+	-  You call this function, then immediately call the result with your component
+	-  e.g. 
+
+			{{{javascript
+			connect(mapStateToProps, mapDispatchToProps)(myComponent)
+			}}}
+	-  Some definitions:
+		\begin{itemize}
+			-  Presentational components: take the props that they are given and just display them
+			-  Container components: take the props, but also dispatch events to redux
+
+== Getting Started with Redux --- Dan Abramov --- egghead.io Course ==
+-  Pure functions: ones which simply return a value (no side effects)
+-  Impure functions: ones which have some sort of side effect (including modifying their arguments)
+	
+-  A simple counter app using React and Redux:
+
+	%\inputminted{js}{./src/index.js}
+	%\inputminted{js}{./src/App.js}

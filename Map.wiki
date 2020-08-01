@@ -1,0 +1,20 @@
+= Map =
+- `const someMap = new Map()`
+- Can also pass in an array of key/value pairs:
+{{{javascript
+	const someMap = new Map([
+	[key1, value1],
+	[key2, value2],
+	...
+	])
+}}}
+- (Key equality considers `NaN` to equal itself; otherwise, it follows `===`)
+- `map.set(key, value)` - set the key/value pair
+	- Can also chain them:
+	{{{javascript
+	map.set(key1, value1).set(key2, value2).set(key3,value3);
+	}}}
+- `map.has(key)` - boolean - does the key exist?
+- `map.get(key)` - will either return `undefined` or the associated value
+- `map.delete(key)` - deletes the key/value pair. Returns `true` if the key existed in the `Map` or `false` if not.
+- `map.keys()` - an iterable containing the keys in insertion order

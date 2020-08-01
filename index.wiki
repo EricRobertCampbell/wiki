@@ -1,0 +1,13 @@
+= Index =
+
+[[Programming]]
+[[Vim]]
+[[Linux]]
+
+== Things to Learn About ==
+- Regular expressions
+- Unit testing in JS / React (react-testing-library and jest)
+- Try / Catch exceptions in JS
+- Asynchronous (async / await) in JS
+- Material UI
+- CSRF? Cross site ...?

@@ -1,0 +1,3 @@
+= Linux =
+== Bash ==
+- To reload the current .bashrc, use `exec bash`

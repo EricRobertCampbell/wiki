@@ -1,0 +1,9 @@
+= Docstrings =
+https://jsdoc.app/
+
+- Format for functions:
+{{{javascript
+ /**
+ * Description here
+ * @param {TYPE} name - description
+}}}

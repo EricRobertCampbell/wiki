@@ -1,0 +1,24 @@
+= Material UI =
+https://material-ui.com/
+
+== Notes ==
+- `npm install @material-ui/core`
+- `npm install @material-ui/icons` (for the...icons...)
+- Components work in isolation and are individually imported:
+{{{javascript
+import { Button } from '@material-ui/core'
+}}}
+- Responsive meta tag: `<meta name="viewport" content="minimum-scale=1, initial-scale=1, width="device-width" />`
+	- 'Write code for mobile first, then scale up as necessary using CSS media queries'
+=== Components ===
+- `Button`
+	- `<Button variant="contained">...</Button>`
+	- `variant`: 'contained' | 'outlined' | 'text'
+	- `color`: 'default' | 'inherit' | 'primary' | 'secondary'
+	- `href`: Link to follow. Changes the base component to `<a>` (rather than `<button>`)
+	- `size`: 'small' | 'medium' | 'large' (medium is default)
+- `Modal`
+	- https://material-ui.com/api/modal/
+	- A modal is a popup that block interaction with the rest of the page
+	- props:
+		- `open={}` props (bool) - if true, the modal is open

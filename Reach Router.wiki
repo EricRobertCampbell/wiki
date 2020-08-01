@@ -1,0 +1,5 @@
+= Reach Router =
+- https://react.tech/router
+
+== Notes ==
+- Links WILL NOT treat fragments as part of the path, nor will they process them as variables! (so `/path` and `/path/#fragment` will be treated the same!)

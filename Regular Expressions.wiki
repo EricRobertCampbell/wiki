@@ -1,0 +1,13 @@
+= JavaScript Regular Expressions =
+- Delineate regular expressions with `/expression/`
+- Test for a match using `Regex.test(string)`
+	- Return true (if there's a match) or false if not
+- Return the actual match using `string.match(regex)`
+	- Returns it in an array: `[match]`
+- Special symbols:
+	- `|` or (match expressions on either side. can be chained `a|b|c`)
+	- `.` wildcard matches a single character
+	- `[]` put a bunch of characters in there, and it will match any one of them
+- Flags are characters that go after the regex `/regex/i` (like i)
+	- `i`: ignore the case
+	-`g`: match all occurrences, not just the first
