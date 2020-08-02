@@ -4,12 +4,18 @@
 	- Return true (if there's a match) or false if not
 - Return the actual match using `string.match(regex)`
 	- Returns it in an array: `[match]`
+- You can also do find/replace with regex and the `str.replace()` method
+	- `"The sky is blue".replace(/blue/, "red")` -> "The sky is red"
+	- You can also access capture groups with `$1`, `$2`, &c.: "Code Camp".replace((\w+)\s(\w+), '$2 $1')" -> "Camp Code"
 - `?`: Usual behaviour is "greedy matching" - matches the *longest* string that matches  that pattern. Use the `?` to change it to _lazy matching_ (matches the smallest string possible)
 - Special symbols:
 	- `|` or (match expressions on either side. can be chained `a|b|c`)
 	- `.` wildcard matches a single character
 	- `[]` put a bunch of characters in there, and it will match any one of them
 	-`()` can be used to group things
+		- It also creates a "capture group". You can refer to different capture groups using `\1`, `\2`, ...
+		- The capture group refers to the literal matched string, not the pattern
+		- When using `str.match`, the array contains both the match and the capture group.
 	-`[^CHARACTER] - matches NOT the things in the brackets
 	-`a+` will match *1 or more* `a`
 	-`a*` will match *0 or more* `a`
@@ -26,9 +32,17 @@
 	-`\s` matches all whitespace
 	-`\S` matches all non-whitespace!
 - Lookaheads: ensure that a patter is (or is not) part of the expression, but won't match it
-	- Positive lookahead: ensures that a pattern in present
+	- Positive lookahead: ensures that a pattern in present: `(?=...)`, where ... is the pattern
+	- Negative lookahead: ensures that a pattern is *not* present: `(?!...)`. Note: no `=`!
+	- Combine multiple by placing them next to each other: `(?=\w{3,6})(?=\D*\d)` checks for 3-6 characterse *and* at least one number
 	
 	
 - Flags are characters that go after the regex `/regex/i` (like i)
 	-`i`: ignore the case
 	-`g`: match all occurrences, not just the first
+	
+== QUESTIONS ==
+- Why does let `pwRegex = /^\D(?=\w{5,})(?=\w*\d{2,})/;` work but let pwRegex = /^\D(?=\w{5,})(?=\d{2,})/;` not 
+	- to find passwords that are >5 characters, don't start with a number, and have two consecutive digits?
+
+
