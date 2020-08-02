@@ -4,10 +4,31 @@
 	- Return true (if there's a match) or false if not
 - Return the actual match using `string.match(regex)`
 	- Returns it in an array: `[match]`
+- `?`: Usual behaviour is "greedy matching" - matches the *longest* string that matches  that pattern. Use the `?` to change it to _lazy matching_ (matches the smallest string possible)
 - Special symbols:
 	- `|` or (match expressions on either side. can be chained `a|b|c`)
 	- `.` wildcard matches a single character
 	- `[]` put a bunch of characters in there, and it will match any one of them
+	-`()` can be used to group things
+	-`[^CHARACTER] - matches NOT the things in the brackets
+	-`a+` will match *1 or more* `a`
+	-`a*` will match *0 or more* `a`
+	-`a{3,5}` will match 3, 4, or 5 `a`s
+	-`a{3,}` will match 3 or more `a`s
+	-`a{3}` will match exactly 3 `a`s
+	-`a?` matches 0 or 1 `a` (it makes it optional)
+	-`^` matches the beginning the a string (*outside* of `[]`)
+	-`$` matches the end of a string
+	-`\w` matches alphanumeric characters (and _) - \w = [a-zA-Z0-9_]
+	-`\W` is the opposite - it matches everything *except* alphanumeric characters
+	-`\d` matches a single digit (equivalent to `[0-9]`
+	-`\D` is the opposite - matches non-digits! (equivalent to `[^0-9]`)
+	-`\s` matches all whitespace
+	-`\S` matches all non-whitespace!
+- Lookaheads: ensure that a patter is (or is not) part of the expression, but won't match it
+	- Positive lookahead: ensures that a pattern in present
+	
+	
 - Flags are characters that go after the regex `/regex/i` (like i)
-	- `i`: ignore the case
+	-`i`: ignore the case
 	-`g`: match all occurrences, not just the first
