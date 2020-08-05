@@ -1,0 +1,14 @@
+= React Testing Library =
+https://testing-library.com/docs/react-testing-library/intro
+
+`import { render } from '@testing-library/react'`
+
+- `render(JSX)`: renders the provided JSX
+- `screen.debug()`: prints out a nice picture of the DOM when you run it (visible on the Jest debugging screen)
+- The `screen` has various different ways of grabbing different elements:
+	- `screen.getByText('Search')` looks for an element whose text content is 'Search'
+- `expect(screen.getByText('Search')).toBeInTheDocument()`: check that there is a component in the DOM with that text
+	- You can also pass in a regular expression instead of a string literal
+- Also: `screen.getByRole()` to search by role????
+- Many searches have a `queryBy` variant. The difference is that this _does not_ throw an error, so can be use to test for whether something isn't in the DOM (e.g.)
+- 

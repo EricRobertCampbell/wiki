@@ -1,0 +1,107 @@
+= Jest =
+Testing library!
+https://jestjs.io/docs/en/tutorial-react
+(When using `create-react-app`, you also need to install: `npm install --only=dev react-test-renderer`)
+
+- To test `file.js`, create the test in `file.test.js` or `file.spec.js`
+- `npm run test`
+- Basic idiom: use the `test` function:
+	{{{javscript
+		test('adds 1 + 2 to equal 3', () => {
+		expect(sum(1, 2)).toBe(3);
+		})
+	}}}
+	- You can have more than one `expect().toBe()`... in the same `test`
+	- You can also use `it` as a synonym for `test`
+- To group related tests (e.g. of the same function or element), you can use `describe`
+{{{javascript
+	describe('my beverage', () => {
+		is('is delicious', () => ...);
+		is('is not sour', () => ...);
+	});
+}}}
+- The `describe` block is the *test suite*, and the `test` or `it` block is the *test case*
+- ??? You can also sometimes use `expect(value).toBe(something)`
+- A *matcher* is a way to test different values. Some common ones:
+	- `.toBe()`: exact equality (basically equivalent to ==)
+	- `.toEqual()`: recursively checks each field of an object or array
+	- `.not.match()`: tests the opposite
+	- `.toBeNull()`: only matches `null`
+	- `.toBeUndefined()`: only matches `undefined`
+	- `.toBeDefined()`: opposite of the above
+	- `.toBeTruthy()`: anything an `if` would regard as true
+	- `.toBeFalsy()`: anything an `if` would regard as false
+	- `.toBeGreaterThan`
+	- `.toBeGreaterThanOrEqual`
+	- `.toBeLessThan`
+	- `.toBeLessThanOrEqual`
+	- `.toBeCloseTo` - for floating point comparisons (you don't want to miss a match because of rounding!)
+	- `.toMatch(regular expression)`: test a string against a regular expression
+	- `.toContain`: test if an array or objects contains something
+	- `.toThrow(error)`: test that the given error is thrown
+- Asynchronous code can also be tested in a variety of ways: https://jestjs.io/docs/en/asynchronous
+- You can mock functions (&c.)
+	- `const mockCallback = jest.fn(x => x + 42)`
+	- Each mocked function has a `.mock` property that contains information about how it was called
+	- `mockCallback.mock.calls.length`: how many times it was called
+	- `mockCallback.mock.calls[1][0]`: the first argument to the second time it was called
+	- `mockCallback.mock.results[0].values`: the value returned from the first time it was called
+	- You can mock return values without actually creating a function:
+		{{{javascript
+		const myMock = jest.fn();
+		myMock.mockReturnValueOnce(10).mockReturnValueOnce('x').mockReturnValue(true);
+		console.log(myMock(), myMock(), myMock(), myMock()) //-> 10, `x`, true, true
+		}}}
+	- We can also mock modules to (e.g.) mock API calls without actually hitting the API
+	- Use the `jest.mock(module)` and then you can use `.get.mockResolvedValue`
+	{{{javascript
+	import axios from `axios`;
+	import Users from './users';
+	
+	jest.mock('axios');
+	
+	test('should fetch users', () => {
+		const users = [{name: 'Bob'}];
+		const resp = {data: users};
+		axios.get.mockResolvedValue(resp);
+		
+		return Users.all().then(data => expect(data).toEqual(users));
+	});
+	}}}
+- To test whether changes are happening in the DOM, you can create a _snapshot_ and test against this to see whether it has changed
+{{{javascript
+import React from 'react';
+import Link from '../Link.react';
+import renderer from 'react-test-renderer';
+
+it('renders correctly', () => {
+	const tree = renderer
+      .create(<Link page="http://www.facebook.com">Facebook</Link>)
+	  .toJSON();
+	  
+	expect(tree).toMatchSnapshot();
+});
+		
+}}}
+- This will generate a static snapshot in a separate `.snap` file
+- Sometimes your snapshot test will fail because you intentionally cahnged the element. In this case you need to update the snapshot:
+{{{bash
+
+jest --updateSnapshots
+
+}}}
+
+- Be careful: if there are bugs present when you run the above command, the bugs will be incorporated into the snapshot!
+- Inline snapshot: information is written directly into the file, rather than into an external one
+- e.g.
+{{{javascript
+it('renders correctly', () => {
+	const tree = renderer
+	.create(<Link page="https://prettier.io">Prettier</Link>)
+	.toJSON();
+expect(tree).toMatchInlineSnapshot();
+
+});
+			
+}}}
+

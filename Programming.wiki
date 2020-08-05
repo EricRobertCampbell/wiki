@@ -8,11 +8,13 @@
 
 === Libraries ===
 [[Apollo]]
-[[React]]
 [[Informed]]
-[[Redux]]
-[[Reach Router]]
+[[Jest]]
 [[MaterialUI]]
+[[Reach Router]]
+[[React]]
+[[react-testing-library]]
+[[Redux]]
 
 === APIs ===
 [[Waveapps]]

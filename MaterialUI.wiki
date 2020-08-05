@@ -11,14 +11,134 @@ import { Button } from '@material-ui/core'
 - Responsive meta tag: `<meta name="viewport" content="minimum-scale=1, initial-scale=1, width="device-width" />`
 	- 'Write code for mobile first, then scale up as necessary using CSS media queries'
 === Components ===
+- `AppBar`
+	- Bar that goes across the screen?
+- `Avatar`: some sort of avatar or placeholder or something?
 - `Button`
 	- `<Button variant="contained">...</Button>`
 	- `variant`: 'contained' | 'outlined' | 'text'
 	- `color`: 'default' | 'inherit' | 'primary' | 'secondary'
 	- `href`: Link to follow. Changes the base component to `<a>` (rather than `<button>`)
 	- `size`: 'small' | 'medium' | 'large' (medium is default)
+- `Card`
+- `CardActionArea`
+- `CardActions`
+- `CardMedia`
+- `FormControl`: used to control a *single* input field
+	- Many different props that control how the input is displayed 
+- `Grid`: used to create a responsive layout
+	- `container` props: indicates that it's a container
+	- `spacing`: values are multiplied by an 8px baseline (e.g. `spacing={2}` -> 16px)
+	- `item` prop: indicates that it lives inside a `Grid` or whatever as an item
+	- `xs={}` A containing grid as 12xs long, so this allows you to control the spacing of items in the container
+- Icons can be used by importing like `import { Home, Book, AccountBox } from '@material-ui/icons';`
+- `Input`: used as an input!
+	- `inputComponent={Custom}` can be used to specify the base element
+- `InputAdornment` can be used to create adornments for the input (e.g. prefix them with kg or $)
+- `List` is a list (horizontal, vertical, &c.)
+- `ListItem` is an individual item on the list
+- `ListItemText` is some text in the list (there can be other things: icons, &c.)
+	- Usually lives inside a `ListItem`
 - `Modal`
 	- https://material-ui.com/api/modal/
 	- A modal is a popup that block interaction with the rest of the page
 	- props:
 		- `open={}` props (bool) - if true, the modal is open
+- `Paper`: makes it look like the element is coming off of the page
+- `TextField`: Like input? Seems to act like an `Input` and `FormControl` all in one (https://material-ui.com/components/text-fields/)
+	- `variant=filled|outlined`
+	- `label=` to label it!
+	- `helperText=""`: text displayed just below the textfield to explain it
+	- `errorText=""`: text displayed below the textfield when an error occurs
+	- `select`: makes it use a `select` component as a base
+	- `placeholder=""` adds placeholder text
+	- `color` changes the colour of the outline and text when focused
+- `Typography` has something to do with the typography?
+	- `gutterBottom`: has a bottom margin (e.g. for titles)
+
+=== Styling ===
+- `import { withStyles } from '@material-ui/core/styles'`
+- Some ways
+{{{javascript
+	const styles = {
+		root: {
+			margin: 20
+	 	},
+		gridItem: {
+			backgroundColor: 'blue',
+		}
+	}
+	
+	const MyComponent = props => ...
+		const { classes } = props;
+		
+		<item className={classes.root} /> //could also have been classes.gridItem
+		...
+	
+	export default withStyles(styles)(MyComponent);
+}}}
+
+OR
+
+{{{javascript
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({ ... the styles });
+
+const MyComponent = props => {
+...
+const classes = useStyles();
+...
+}
+}}}
+
+=== Themes ===
+
+- Use the `ThemeProvider` component:
+{{{javascript
+<ThemeProvider theme={theme}>
+	<Component />
+</ThemeProvider>
+}}}
+
+- You can access the theme directly in a component by using the `useTheme` hook (`import { useTheme } from '@material-ui/core/styles'`)
+- Create a theme by (e.g.) using the `createMuiTheme(options, ...args) => theme` function
+{{{javascript
+import { createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import green from '@material-ui/core/colors/green';
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: purple[500],
+		},
+		secondary: {
+			main: green[500],
+		}
+	}
+})
+}}}
+ 
+- You can configure the theme by using the following variables: (see https://material-ui.com/customization/theming/)
+	- `palette`
+	- `typography`
+	- `spacing`
+	- `breakpoints`
+	- `z-index`
+	- `globals`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
