@@ -1,4 +1,5 @@
 = JavaScript =
 [[Docstrings]]
+[[Hooks]]
 [[Map]]
 [[Regular Expressions]]

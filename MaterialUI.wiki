@@ -84,6 +84,8 @@ OR
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({ ... the styles });
+//OR:
+//const useStyles = makeStyles((theme) => ({ ... the styles }));
 
 const MyComponent = props => {
 ...
@@ -101,7 +103,17 @@ const classes = useStyles();
 </ThemeProvider>
 }}}
 
-- You can access the theme directly in a component by using the `useTheme` hook (`import { useTheme } from '@material-ui/core/styles'`)
+- You can access the theme directly in a component by using the `useTheme` hook 
+{{{javascript
+import { useTheme } from '@material-ui/core/styles')
+
+const MyComponent = () => {
+	...
+	const theme = useTheme();
+	...
+}
+
+}}}
 - Create a theme by (e.g.) using the `createMuiTheme(options, ...args) => theme` function
 {{{javascript
 import { createMuiTheme } from '@material-ui/core/styles';

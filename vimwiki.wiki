@@ -1,0 +1,8 @@
+= VimWiki =
+https://github.com/vimwiki/vimwiki
+
+== Formatting ==
+- `[[Link|Description]]`
+
+== Keybindings ==
+- `<Leader>ww` -- Open default wiki file

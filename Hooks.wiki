@@ -1,0 +1,11 @@
+= Hooks =
+- `useState`:
+	- You can pass a function as the argument to `useState`, and the result of that calculation will set the initial state. It will only be run on the first render!
+{{{javascript
+const [ state, setState ] = useState(() => {
+	const initialState = someExpensiveCalculation(props);
+	return initialState;
+ }) 
+}}}
+
+- Test

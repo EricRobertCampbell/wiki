@@ -5,6 +5,7 @@ https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resourc
 - Get a developer account at the [developer portal](https://developer/salesforce.com)
 
 === Using the API ===
+- Test queries in the Developer Console (Homepage -> [Gear] -> [Developer Console])
 - REST API
 - `curl https://yourInstance.salesforce.com/data/services/data`
 - For a client to have access to the API, it needs to be authorized as a safe visitor
@@ -33,7 +34,7 @@ https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resourc
 		]
 }
 }}}
-- You can add an object by just sening a request to the REST enpoint with method post and the data 
+- You can add an object by just sending a request to the REST enpoint with method post and the data 
 - Edit an object by sending a request to the REST endpoint associated with the ID of that object
 - Lots more examples [here](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/using_resources_working_with_records.htm)
 - Example of using an authorization endpoint to authorize can be found [here](https://developer.salesforce.com/blogs/developer-relations/2015/08/creating-jquery-application-using-rest-api.html)
