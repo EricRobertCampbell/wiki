@@ -1,0 +1,23 @@
+= Google Maps / Places =
+
+- Basic query form: `https://maps.googleapis.com/maps/api/place/findplacefromtext/output?parameters`
+	- `output` is either `json` or `xml`
+- Required parameters:
+	- `key`
+	- `input` - what identifies your search (name, address, phone number)
+	- `inputtype`: `textquery` or `phonenumber`
+- Optional parameters:
+	- `language` - the language code
+	- `fields` - the fields to return, separated by a comma
+		- Basic:
+			- `business_status`
+			- `formatted_address`
+			- `geometry`
+			- `icon`
+			- `name`
+			- `photos`
+			- `place_id`
+			- `plus_code`
+			- `types`
+	- `locationbias` - a hint as to where to find the results
+		- rectangular: `rectangle:south,west|north,east`

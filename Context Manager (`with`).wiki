@@ -1,0 +1,7 @@
+= Context Manager (`with`) =
+
+{{{python
+with expression as variable:
+	...
+}}}
+

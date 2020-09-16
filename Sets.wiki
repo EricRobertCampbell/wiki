@@ -1,0 +1,49 @@
+= Sets =
+
+- Unordered, unique elements, elements must be immutable
+- `x = set(iterable)`
+- `x = {item1, item2, ...}`
+- `len`, `in`, `not in`
+- Operators:
+	- union:
+		- `s1 | s2` - both must be `sets` already
+		- `s1.union(s2)`: `s1` must be a `set`, and `s2` an iterable. It will be converted to a `set`.
+	- intersection:
+		- `s1 & s2`
+		- `s1.intersection(s2)`
+	- difference:
+		- `s1 - s2` (elements in `s1` that aren't in `s2`)
+		- `s1.difference(s2)`
+	- symmetric difference (in either set, but not both):
+		- `s1 ^ s2`
+		- `s1.symmetric_difference(s2)`
+	- is disjoint?
+		- `s1.isdisjoint(s2)`
+	- is a subset:
+		- `s1 <= s2`
+		- `s1.issubset(s2)`
+	- is a proper subset:
+		- `s1 < s2`
+	- is a superset:
+		- `s1 >= s2`
+		- `s1.issuperset(s2)`
+	- proper superset:
+		- `s1 > s2`
+- Updating:
+	- Each of the operators above has an assignment operator as well: `s1 |= s2`
+	- `s1.update(elem)`: adds `elem` to `s1` (if not already present). Equivalent to `s1 |= {elem}`
+	- `s1.add(elem)` adds `elem` to `s1` if not already present
+	- `s1.remove(elem)` remove `elem` from the set and raises an exception if it is not present
+	- `s1.discard(elem)` removes `elem` from the set, but quietly do nothing if it is not present
+	- `s1.pop()` removes and returns a random element. If `s1` is empty, raises an error.
+	- `s1.clear` removes all elements from `s1`
+
+- `frozenset`: immutable set
+	{{{python
+	x = frozenset(['a', 'b', 'c'])
+	}}}
+	- NB you can use assignment operators (`|=`): it just reassigns the value, it doesn't modify it in place
+	
+== Objects As Set Members ==
+- Objects are mutable, and so shouldn't be used in `sets`
+- You can force this by defining `__eq__` and `__hash__` functions on the object appropriately!

@@ -1,0 +1,27 @@
+= Testing in Python =
+- For basic stuff you can use `assert`:
+{{{python
+assert 1 + 1 == 2, "Should be 2"
+}}}
+
+- For other stuff you should use a _test runner_
+- (Built-in one is `unittest`)
+
+== `unittest` ==
+- Requires:
+	- tests into classes as methods
+	- Use a series of special assertion methings in the `unittest.TestCase` class
+- Common assertion methods:
+	- `.assertEqual(a, b)`: `a == b`
+	- `.assertTrue(x)`: `x` is `True`
+	- `.assertFalse(x)`: `x` is `False`
+	- `.assertIs(a, b)`: `a is b`
+	- `.assertIsNone(a)`: `a is None`
+	- `.assertIn(a, b)`: `a in b`
+	- `.assertIsInstance(a, b)`: `isinstance(a, b)`
+- To test that an error was thrown:
+	{{{python
+	with self.assertRaise(TypeError):
+		result = sum("banana")
+	}}}
+	- The test will now only pass if it raises a `TypeError`

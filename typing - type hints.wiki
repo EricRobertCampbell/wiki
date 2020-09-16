@@ -1,0 +1,10 @@
+= Typing / Type Hints =
+
+- [[ https://docs.python.org/3.7/library/typing.html?highlight=typing#module-typing|Python Documentation ]]
+- You can provide a hint as to the type of a variable with the `var: type` syntax
+{{{python
+def greeting(name: str) -> str:
+	return 'Hello ' + name
+}}}
+- Indicates the name is expected to be a `str` and that the function should return a `str`.
+- Just hints for external programs - not enforced by the actual Python interpreter

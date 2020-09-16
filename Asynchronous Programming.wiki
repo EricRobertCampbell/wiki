@@ -1,0 +1,25 @@
+= Asynchronous Programming =
+- Coroutine: specialized version of a `generator` function
+	- Can suspend execution before reaching `return` and can pass control to another coroutine
+- `async`: defines an asynchronous function (coroutine)
+	- May use `await`, `return`, or `yield` 
+	- Note: you can't just run a corouting - need to either `await` it in another corouting or use the `.run` or `.create_task` function
+		- (If you run a coroutine by itself you just get a reference back)
+- `await`: pass control of the loop back to something else
+	- _Must_ be used in an `async` function
+	- Must use `async` to get the result of an `async` function
+- `yield` in an `async` results in an *asynchronous generator*. These are looped over with `async for`
+	- Anything defined with `async def` may not use `yield from`
+
+- `asyncio` functions
+	- `asyncio.run(function())`: runs a top-level entry point (schedules it in the event loop)
+	- `asynio.sleep(n)`: sleeps for `n`, nonblocking
+	- `asyncio.create_task(function())`: create a task. You then run it using `await task`
+	- `.gather()` runs a bunch of coroutines and then returns their results in the specified order
+	- `.as_completed(( task1, task2, task3, ... ))` will make the tasks available as and in the order that they are completed
+		- e.g.
+		{{{python
+		for res in asyncio.as_completed((t1, t2)):
+			compl = await res
+			print(comp)
+		}}}

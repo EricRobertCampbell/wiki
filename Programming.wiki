@@ -17,5 +17,6 @@
 [[Redux]]
 
 === APIs ===
+[[Google Maps and Places]]
 [[Waveapps]]
 [[Salesforce]]
