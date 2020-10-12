@@ -13,6 +13,7 @@ assert 1 + 1 == 2, "Should be 2"
 	- Use a series of special assertion methings in the `unittest.TestCase` class
 - Common assertion methods:
 	- `.assertEqual(a, b)`: `a == b`
+	- `.assertNotEqual(a, b)`: `a != b`
 	- `.assertTrue(x)`: `x` is `True`
 	- `.assertFalse(x)`: `x` is `False`
 	- `.assertIs(a, b)`: `a is b`

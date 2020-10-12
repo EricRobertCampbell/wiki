@@ -2,21 +2,14 @@
 
 == Languages ==
 [[JavaScript]]
+[[Python]]
 
 
 == Web Development ==
-
-=== Libraries ===
-[[Apollo]]
-[[Informed]]
-[[Jest]]
-[[MaterialUI]]
-[[Reach Router]]
-[[React]]
-[[react-testing-library]]
-[[Redux]]
-
 === APIs ===
+[[AWS|Amazon Web Services]]
+[[CGNDB|Canadian Geographical Names Database]]
 [[Google Maps and Places]]
-[[Waveapps]]
+[[Open Canada CanVec Series (boundaries)]]
 [[Salesforce]]
+[[Waveapps]]

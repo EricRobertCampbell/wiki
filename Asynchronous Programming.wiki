@@ -1,4 +1,5 @@
 = Asynchronous Programming =
+Basic library: [[asyncio]]
 - Coroutine: specialized version of a `generator` function
 	- Can suspend execution before reaching `return` and can pass control to another coroutine
 - `async`: defines an asynchronous function (coroutine)
@@ -12,10 +13,18 @@
 	- Anything defined with `async def` may not use `yield from`
 
 - `asyncio` functions
-	- `asyncio.run(function())`: runs a top-level entry point (schedules it in the event loop)
-	- `asynio.sleep(n)`: sleeps for `n`, nonblocking
-	- `asyncio.create_task(function())`: create a task. You then run it using `await task`
-	- `.gather()` runs a bunch of coroutines and then returns their results in the specified order
+	- `asyncio.as_completed(iterable of Futures)`:
+		- Makes them available as they complete
+		- Don't need to be futures - that is guaranteed by the function
+		- [[https://hynek.me/articles/waiting-in-asyncio/|Examples]]
+		{{{python
+		for fut in asyncio.as_completed([task_f, task_g], timeout=5.0):
+			try:
+				await fut
+				print("one task down!")
+			except Exception:
+				print("ouch")
+		}}}
 	- `.as_completed(( task1, task2, task3, ... ))` will make the tasks available as and in the order that they are completed
 		- e.g.
 		{{{python
@@ -23,3 +32,29 @@
 			compl = await res
 			print(comp)
 		}}}
+	- `asyncio.run(function())`: runs a top-level entry point (schedules it in the event loop)
+		- It returns the value returned by the function it runs!
+		{{{python
+		result = asyncio.run(get_api_results())
+		}}}
+	- `asynio.sleep(n)`: sleeps for `n` _seconds_, nonblocking
+		- `time.sleep(# seconds)` is the blocking version
+	- `asyncio.create_task(function())`: create a task. You then run it using `await task`
+	- `.gather()` runs a bunch of coroutines and then returns their results in the specified order. This should be `await`ed!
+- `asyncio.Semaphore`: used to control the number of concurrent ... actions?
+	{{{python
+	sem = asyncio.Semaphore(10) #limit 10 concurrent processes
+	...
+	async with sem:
+		... do some stuff
+	}}}
+	- Useful code snippet from [[https://stackoverflow.com/questions/48483348/how-to-limit-concurrency-with-python-asyncio|Stack Overflow]]
+	{{{python
+	async def gather_with_concurrency(n, *tasks):
+	    semaphore = asyncio.Semaphore(n)
+	
+	    async def sem_task(task):
+	        async with semaphore:
+	            await task
+	    await asyncio.gather(*(sem_task(task) for task in tasks))
+	}}}	

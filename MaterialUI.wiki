@@ -55,6 +55,7 @@ import { Button } from '@material-ui/core'
 	- `color` changes the colour of the outline and text when focused
 - `Typography` has something to do with the typography?
 	- `gutterBottom`: has a bottom margin (e.g. for titles)
+	- `variant` - the kind of element to look like
 
 === Styling ===
 - `import { withStyles } from '@material-ui/core/styles'`

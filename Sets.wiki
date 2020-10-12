@@ -32,6 +32,7 @@
 - Updating:
 	- Each of the operators above has an assignment operator as well: `s1 |= s2`
 	- `s1.update(elem)`: adds `elem` to `s1` (if not already present). Equivalent to `s1 |= {elem}`
+		- `elem` can also be a set
 	- `s1.add(elem)` adds `elem` to `s1` if not already present
 	- `s1.remove(elem)` remove `elem` from the set and raises an exception if it is not present
 	- `s1.discard(elem)` removes `elem` from the set, but quietly do nothing if it is not present

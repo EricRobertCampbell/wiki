@@ -1,4 +1,10 @@
 = Google Maps / Places =
+- Documentation: [[https://developers.google.com/places/web-service/overview|Here!]]
+
+== Google Maps JavaScript API ==
+- [[https://developers.google.com/maps/documentation/javascript/events|Events Documentation]]
+- [[https://developers.google.com/maps/documentation/javascript/geometry|Geometry Documentation]]
+	- `google.maps.geometry.spherical.computeDistanceBetween(LatLng, LatLng)` - metres
 
 - Basic query form: `https://maps.googleapis.com/maps/api/place/findplacefromtext/output?parameters`
 	- `output` is either `json` or `xml`
@@ -21,3 +27,19 @@
 			- `types`
 	- `locationbias` - a hint as to where to find the results
 		- rectangular: `rectangle:south,west|north,east`
+
+== Places Search ==
+=== Nearby Search ===
+- base url: https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
+	- `output`: `json` or `xml`
+	- Parameters:
+		- Required:
+			- `key`
+			- `location`: centre of the search circle. Must be `latitude,longitude`
+			- `radius`: specified in metres. Max is 50 000. _Must not_ be included if `rankby=distance` is used
+		- Optional:
+			- `keyword`
+			- `rankby`:
+				- `prominence` (default) - importance
+				- `distance`
+			- `type`: only one can be specified. List [[https://developers.google.com/places/web-service/supported_types#table1|here!]]
