@@ -1,0 +1,24 @@
+= Open Canada Topographic Data of Canada - CanVec Series =
+- [[https://open.canada.ca/data/en/dataset/8ba2aa2a-7bb9-4448-b4d7-f164409fe056|Source]]
+- [[https://open.canada.ca/data/en/dataset/306e5004-534b-4110-9feb-58e3a5c3fd97|Administrative Boundaries]]
+	- Formats:
+		- wms: Web Map Service:
+			- [[https://en.wikipedia.org/wiki/Web_Map_Service]]
+			- Protocol to serve a georeferenced map
+		- kmz: keyhole markup, zipped:
+			- Structured like XML
+			- Actual information is in the .kml file
+			- [[https://dmuhs.blog/2018/09/14/parsing-kmz-track-data-in-python/|Parsing KMZ in Python]]
+			- [[https://www.gearthblog.com/blog/archives/2005/09/google_earth_fi.html|Google Earth Blog]]
+			- XML / HTML like way of representing map information
+			- [[https://developers.google.com/kml/documentation/kmlreference|Google Earth Reference]]
+			- NB: `coordinate` format is `<coordinate>longitude,latitude,altitude</coordinate>`:
+				- long and lat are reversed compared to EVERY OTHER THING THAT USES THEM
+				- Also includes a latitude at the end - 3 coordinates, not just 2!
+		- shp: shapefile
+			- https://en.wikipedia.org/wiki/Shapefile
+			- Collection of several types of file...
+- [[https://open.canada.ca/data/en/dataset/b3fdcd34-4533-415f-8f83-68f17f9d5d68|Toponyms - May be able to get municipal boundaries!]]
+- [[https://www.nrcan.gc.ca/earth-sciences/geography/download-geographical-names-data/9245|Geographical Names Data]]
+	- Different file formats - only includes the place name and the [[CGNDB]] ID
+

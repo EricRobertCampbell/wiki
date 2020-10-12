@@ -1,0 +1,63 @@
+= Objects and Classes =
+
+== Basics ==
+
+{{{python
+class ClassName(InheritsFrom):
+	...
+}}}
+
+- `dir`: returns a list of all of the properties and methods of a class / object
+	- For a user-defined class, that class will need a `__dir__` method
+- `getattr(obj, prop, value)` will:
+	- get the `prop` property from `obj`
+	- If not found, will return `value` instead
+- `setattr(obj, prop, value)`: sets the value of `obj.prop` to `value`
+- To get a list of all of the attributes of an object:
+[[https://stackoverflow.com/questions/1215408/how-to-list-all-class-properties|Source]]
+{{{python
+property_names=[p for p in dir(SomeClass) if isinstance(getattr(SomeClass,p),property)]
+}}}
+
+== Dunder Methods ==
+- `__dir__`: returns a list of all attributes
+	- An *attribute* is a variable belonging to the object instance, _not_ a method
+
+== Inheritance ==
+{{{python
+class DerivedClass(BaseClass):
+	...
+}}}
+- Inherits all of the properties, &c. of `BaseClass`
+- Override by just writing new properties
+- To call the version of the functions defined in the superclass,
+{{{python
+class DerivedClass(BaseClass):
+	def __init__(self, name, type):
+		BaseClass.__init__(self, name)
+		...
+}}}
+or
+{{{python
+class DerivedClass(BaseClass):
+	def __init__(self, name, type):
+		super().__init__(name)
+		...
+}}}
+- NOTE: When using `super()`, you don't need to pass `self` to the function!
+- There are some differences between these, but apparently they mostly come up when dealing with multiple inheritance...
+
+== Decorators ==
+
+- `@property` decorator to a method lets you use a returned value as though it were a property
+	{{{python
+	class Test:
+		...
+		
+		@property
+		def formatted_name(self):
+			return self.first_name + self.last_name
+	
+	t = Test('Bob', 'Smith')
+	t.formatted_name #return 'Bob Smith'
+	}}}

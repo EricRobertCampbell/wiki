@@ -1,0 +1,6 @@
+= Canadian Geographical Names Database (CGNDB) =
+
+- API Information: [[https://www.nrcan.gc.ca/maps-tools-publications/maps/geographical-names-canada/application-programming-interface-api/9249|here!]]
+- That allows you to do various searches for a feature - how do we get the KLM with the boundary????
+	- geonmames.FORMAT (`geonames.kml`)
+- Can do lots of searches - used to get the names, categories, and boundary boxes!

@@ -1,0 +1,5 @@
+= String Functions =
+[[https://docs.python.org/3/library/stdtypes.html#string-methods|Documentation]]
+
+- You can also use the `in` operator to test whether `a` is a substring of `b`
+- `.title()` changes it to title case: 'Bob and his friends' -> 'Bob And His Friends'

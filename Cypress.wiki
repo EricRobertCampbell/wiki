@@ -1,0 +1,60 @@
+= Cypress =
+[[https://www.cypress.io/|Homepage]]
+
+== Installing ==
+`npm install cypress`
+
+== Running ==
+`npx cypress open`
+
+- You can also add it to the `scripts` part of your package.json:
+	{{{json
+	  {
+		  "scripts": {
+			  "cypress:open": "cypress open"
+		  }
+	  }
+	}}}
+	- Then we can run it with `npm run cypress:open`
+
+== Command Line Tools ==
+[[https://docs.cypress.io/guides/guides/command-line.html#cypress-run|Documentation]]
+
+
+== Tests ==
+`describe` and `it` come from [[Mocha]]
+`expect` comes from [[Chai]]
+
+== Commands ==
+- Access commands from the `cy` object (so `cy.contains('type')`, &c.)
+
+- `cy.contains('content')` - gets an element that has content as a string (substring)
+	- `cy.contains('content')`
+	- `cy.contains('content', options)`
+	- `cy.contains(selector, 'content'`
+	- &c. (there are lots more)
+- `.click()` - simulates a click on the element that was just found
+- `.pause()` - pauses the process and provides an interface for either resuming the entire operation or stepping through one command at a time
+- `.should()` - assertion like
+	- `.should(chainer)`
+	- `.should(chainer, value)`
+	{{{javascript
+	cy.contains('login').should('be.visible')
+	}}}
+	- Chainers are valid [[Chai]], [[Chai-jQuery]], or [[Sinon-Chai]] chainers
+		- e.g. [[https://docs.cypress.io/guides/references/assertions.html#Chai|here]]
+
+== Configuration ==
+- `cypress.json` in the project directory
+- Base url: 
+  {{{json
+  {
+  	"baseUrl": "http://localhost:3000"
+  }
+  }}}
+	- Will prefix any `cy.visit()` and `cy.request()` commands with this
+	- e.g. `cy.visit("/")` will take you to the homepage
+
+== Single Sign-on Authentication ==
+[[https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/logging-in__single-sign-on|Cypress Recipe]]
+[[https://www.youtube.com/watch?v=5XQOK0v_YRE|Video]]

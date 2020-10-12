@@ -1,0 +1,8 @@
+= pyKML =
+Python parser and writer for [[Open Canada CanVec Series (boundaries)|KML]] files
+[[https://pythonhosted.org/pykml/index.html|Homepage]]
+
+- `from pykml import parser`
+- `parser.parse(...)`
+- access things through an object
+

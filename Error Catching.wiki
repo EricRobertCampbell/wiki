@@ -1,0 +1,17 @@
+= Error Catching =
+
+{{{python
+try:
+	...
+except ExceptionName:
+	...
+finally:
+	...
+}}}
+
+{{{python
+try:
+	...
+except (ExceptionOne, ExceptionTwo) as e: #the `as e` is optional
+	...
+}}}

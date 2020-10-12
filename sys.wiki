@@ -1,0 +1,3 @@
+= sys =
+- `sys.exit(code)`: exits the program
+	- `code` is the optional exit code (0 - success; 1 - not)

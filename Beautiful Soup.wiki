@@ -1,0 +1,7 @@
+= Beautiful Soup =
+`from bs4 import BeautifulSoup`
+
+`soup.findall(tag, **options)`
+	- `class_=...`
+	- `text=...`
+`tag.name` - the tag name (e.g. "b" or "h1")

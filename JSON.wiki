@@ -1,0 +1,7 @@
+= JSON in Python =
+- Use the `json` library
+- `json.dump(data, write_file)`
+- You should wrap this in a context manager to open the file: `with open("file_name", "mode") as data_file:`
+- `json.dumps(data)`: writes `data` as a JSON string to a string (not a file)
+- to load data: `data = json.load(read_file)` 
+  - Again, should be in a context manager to get `read_file`

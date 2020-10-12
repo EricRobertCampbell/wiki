@@ -1,0 +1,14 @@
+= Python Docstrings =
+{{{python
+function(a, b):
+"""
+Quick, simple description
+
+Parameters:
+a (int) -- the first one
+b (int) -- the second one
+
+Returns:
+int: Result of doing some stuff to a and b
+"""
+}}}

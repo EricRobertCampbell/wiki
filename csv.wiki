@@ -1,0 +1,23 @@
+= csv =
+Library for reading and writing csv files
+Docs: [[https://docs.python.org/3/library/csv.html|here]]
+
+{{{python
+import csv
+with open('eggs.csv', 'r', newline='') as csvfile:
+	spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+	for row in spamreader:
+		print(', '.join(row))
+}}}
+- to skip a line, just call `next(spamreader)`
+
+== Reading to a Dictionary ==
+You can also read each row into a dictionary
+{{{python
+import csv
+with open('names.csv', 'r') as csvfile:
+	reader = csv.DictReader(csvfile):
+	for row in header:
+		print(row['first_name'], row['last_name'])
+}}}
+- The keys are grabbed from the first row of the file, or you can pass in the `fieldnames` parameter

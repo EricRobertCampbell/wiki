@@ -1,0 +1,150 @@
+= Django =
+
+== Important Files ==
+- `manage.py` - lets you interact with the project
+- `settings.py` - settings for this project
+- `urls.py` - a "table of contents" for the site
+- `APP_NAME/models.py` - file containing the models for the app
+	- models are represented by Python classes
+
+
+== Important Functions ==
+- `path()`
+	- `route`: a URL matching patters
+	- `view`: call the specified view function with an `HttpRequest` object as the first argument and any 'captured' values from theroute as keyword arguments
+	- `kwargs`: it exists!
+	- `name`: unique name that lets you refer to the URL from anywhere in the project
+- `admin.site.register(*models)` - registers the models as being available to edit, &c. from the admin panel
+
+== General Notes ==
+- Project: collection of apps
+- App: web application that does something
+	- Each app lives in its own directory in the project folder
+	- To create an app: `python manage.py startapp APP_NAME`
+
+=== Models ===
+- created in the `APP_NAME/models.py` file
+- each model is a class subclassing `django.db.models.Model`
+- each field is a class variable (e.g. `CharField`, `IntegerField`)
+	- More information on `Fields` [[https://docs.djangoproject.com/en/3.1/ref/models/fields/#model-field-types|here]]
+		- `TextField` - a large `CharField` where the length is not enforced
+- You can also pass various parameters to the model (e.g. `default=0`, `max_length=200`, or just a string representing a human-readable version of the field (FIRST POSITIONAL ARGUMENT	))
+- You can use the model name to get lots of stuff!
+	- `MODEL.objects.all()` - returns a `QuerySet` of all of that model that you've created
+	- `MODEL.objects.get(pk=1)` returns the `MODEL` object with primary key (id) 1
+	- 
+	 {{{python
+	 obj = MODEL(params)
+	 obj.save()
+	 }}}
+	 will save it!
+	- `obj.id` - the automatically created id
+	- You can also reference related model objects (e.g. for the `Question` class and the `Choices` class):
+		{{{python
+		q.choice_set.create(params for the Choice model)
+		}}}	
+		- It can also go the other way:
+		{{{python
+		c.question
+		}}}
+		would refer to the `Question` that the `Choice` `c` belongs to
+	- There are also double-underscored functions that assist in lookup:
+		{{{python
+		c = q.choice_set.filter(choice_text__startwith('Just hacking'))
+		}}}
+		- More information [[https://docs.djangoproject.com/en/3.1/topics/db/queries/#field-lookups-intro|here]]
+		- Delete using `blah.delete()`
+		- Note that this removed it from the database, but not from the local instance: e.g.
+		{{{python
+		a = Question.get(pk=1)
+		a.delete()
+		a # will print a
+		Question.objects.all() #will not show a - it's not in the DB anymore
+		}}}
+		
+=== Querying, Filtering, and Ordering ===
+==== Ordering ====
+- `MODEL.objects.order_by('-field')` - by field, descending
+- `MODEL.objects.order_by('field')` - by field, ascending
+
+==== One-to-One, Many-to-One, and Many-to-Many Relationships ====
+[[https://docs.djangoproject.com/en/3.1/topics/db/examples/one_to_one/|Information Here]]
+- One-to-One
+	- Use a `OneToOneField(Place, on_delete=models.CASCADE, &c.)`
+	- One you set this up, the objects know about each other
+	- e.g. you can do `restaurant.place` and `place.restaurant` and they will return the unique object
+	- Will throw and `ObjectDoesNotExist` error if there isn't one associated with it
+		- Or use `hasattr(p2, 'restaurant')`
+- Many-to-One
+	- This can be used to model an (unordered) array!
+	- Do this using a `models.ForeignKey`
+	- e.g. 
+	{{{python
+	class Reporter: ...
+	class Article:
+		...
+		reporter = models.ForeignKey(Reporter, related_name="article" on_delete=models.CASCADE)
+	}}}
+	- Each `Article` has one `Reporter`, but a `Reporter` can have many `Articles`
+	- `on_delete=models.CASCADE` -> If the reporter is deleted, so are all of their articles
+	- Each article can refer to their reporter: `article.reporter.id`, &c.
+	- Since a reporter can have many articles, there is automatically an `article_set` attribute created
+		- e.g. if `bob` is a reporter, to find all of their articles you would do `bob.article_set.all()`
+		- You can also use the `article_set` to directly create articles for `bob`: `bob,article_set.create(headline="test")`
+		- Note that you didn't have to pass in the reporter - this is assumed because it is part of `bob`'s article set!
+		- If the name of the class consists of many words, it is not snake-cased, it is just made lowercase: `BoundaryCoordinate` -> `boundarycoordinate_set`
+	- To connect models with `ForeignKey` to each other, you need to use the `related_name` field:
+		- [[https://docs.graphene-python.org/projects/django/en/latest/tutorial-plain/|Django-Graphene Tutorial Example]]
+		- [[https://stackoverflow.com/questions/2642613/what-is-related-name-used-for-in-django|StackOverflow Example]]
+		- [[https://stackoverflow.com/questions/62303396/cant-get-the-value-of-onetoone-relationship-queries-in-graphene-django|StackOverflow - Related Fields Not Working]]
+- Many-to-Many
+
+=== Exceptions ===
+[[https://docs.djangoproject.com/en/3.1/ref/exceptions/|Reference]]
+ - `ObjectDoesNotExist`
+ 	{{{python
+	from django.core.exceptions import ObjectDoesNotExist
+	try:
+		p2.restaurant
+	except ObjectDoesNotExist:
+		print('No restaurant found!')
+ 	}}}
+
+=== Admin ===
+- Useful for managing the site!
+- Need to create a user who can access it: `python manage.py createsuperuser`
+- To enable admin users to change a `MODEL` in `APP_NAME`, in `APP_NAME/admin.py`:
+	- `admin.site.register(MODEL)`
+
+=== Views ===
+- A view is a *type* of web page
+- Created in `APP_NAME/views.py`
+- urlpattern can include variables like `<int:question_id>/`. Whatever is there in the url will be passed to the view function (`views.py`) as a keyword parameter
+
+=== Custom Django-Admin Commands ===
+[[https://docs.djangoproject.com/en/3.1/howto/custom-management-commands/|Documentation Here]]
+- To create a custom command, create a .py file in `APP_NAME/management/commands`
+- The file's name will be the command 
+- Must define a class `Command` that extends `BaseCommand` or one of its subclasses
+- Attributes:
+	- `help` - help text
+	- `add_arguments(self, parser)` - `parser.add_argument('name', nargs='+', type=int)`
+	- `def handle(self, *args, **options)`: the actual command
+- See `argparse` documentation for the `add_argument` usage
+
+=== Apps ===
+- A web application that does something
+- Each one lives in its own directory in the main django directory
+- Once the app exists, you need to register it with the project
+(In `settings.py`)
+{{{python
+	INSTALLED_APPS = [
+	app_name.apps.AppNameConfig,
+	...
+	]
+}}}
+- You then need to update the database by first creating and then applying a migration
+{{{base
+python manage.py makemigrations APP_NAME --> create the migration scheme
+python manage.py migrate --> actually do it
+}}}

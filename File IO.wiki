@@ -1,0 +1,11 @@
+= File IO =
+
+{{{python
+with open('filename', 'mode') as file:
+	...
+}}}
+
+- `mode`:
+	- `r` - read only
+	- `r+` - read and write
+	- `w` - write only (existing file will be erased)

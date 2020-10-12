@@ -1,0 +1,35 @@
+= Python `argparse` =
+- Tutorial [[https://docs.python.org/3.3/howto/argparse.html#id1|here]]
+- Documentation [[https://docs.python.org/3/library/argparse.html|here]]
+- Basic one that does almost nothing
+{{{python
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.parse_args
+}}}
+
+- Adding an argument:
+{{{python
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("echo", help="Echo the string you see here")
+args = parser.parse_args()
+print(args.echo)
+}}}
+	- Called as `python.py test`
+	- This adds a positional argument, `echo`, which can be accessed at `args.echo`
+	- For the above, the value of `args.echo` would be test
+	- The help text would be displayed when you call `-h` or `--help`
+
+- By default, all arguments are passed as strings. To force the type, you can specify `type=int` or `type=float` (or whatever) when creating the argument
+- To create an optional argument, prepend the argument name with -- (so `parser.add_argument('--verbosity')`)
+	- The value following `--verbosity` on the command line will be what is stored in `args.verbosity`
+- Add short option by just declaring both the long and short: `parser.add_argument('-v', '--verbosity')`
+- Make optional arguments (--whatever) actually required by passing in `required` to `add_argument()`
+- Make a default value by passing in `default=...` to `add_argument`
+	
+
+
+

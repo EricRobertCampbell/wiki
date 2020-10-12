@@ -1,0 +1,21 @@
+= re =
+Regular expressions library
+= Regular Expression Functions =
+`a = re.compile("expression", re.IGNORECASE, &c.)`
+`a.`
+- `match()`: determines if it matches at the beginning of a string
+	This will return a `Match` object, which you can then query for more information:
+	- `group()`: returns the string matched
+	- `start()`: returns the initial match position
+	- `end()`: returns the final match position
+	- `span()`: a `(start, end)` tuple
+- `search("regex string", "string to test")`: finds any location where it matches
+	- Returns a `Match` object
+- `findall()`: find all substrings that match and return them as a list
+- `finditer()`: same as above, but return them as an [[iterator]]
+
+= Module Level Functions =
+- `re.match("expression", "thing to match")`
+
+== Flags ==
+- `re.I`, `re.IGNORECASE`: Ignore the case in a match

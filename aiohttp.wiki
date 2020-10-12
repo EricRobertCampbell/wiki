@@ -1,0 +1,15 @@
+= aiohttp =
+An asynchronous http request (&c.) library
+
+{{{python
+async with aiohttp.ClientSession() as session:
+	async with session.get(url) as resp:
+		#do stuff with the response
+}}}
+
+- Useful stuff:
+	- `resp.status` - the status number (200, &c)
+	- `resp.url` - the actual URL that was sent
+	- `await resp.text()` - the text of the response. For an HTML page, this is the HTML as a string
+	- `await resp.json()` - the *parsed* json object
+	- `await resp.read()` - the response as bytes (for non-text)

@@ -1,0 +1,3 @@
+= Lists =
+
+- `list.index(elem)` gives the index of the first occurrence of `elem` in `list`
