@@ -1,0 +1,12 @@
+= pathlib =
+Allows you to specify os-agnostic paths
+
+- Specify a path in `Path` using the `/` and it will translate to whatever works for the current OS
+- Thereafer, you can just add to a `Path` using `/`
+
+{{{python
+from pathlib import Path
+
+data_path = Path("source_data/text_files/")
+path_to_file = data_path / "data.txt"
+}}}

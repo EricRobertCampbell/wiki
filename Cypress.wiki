@@ -58,3 +58,61 @@
 == Single Sign-on Authentication ==
 [[https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/logging-in__single-sign-on|Cypress Recipe]]
 [[https://www.youtube.com/watch?v=5XQOK0v_YRE|Video]]
+[[cypress-social-logins]]
+
+== Environment Variables ==
+[[https://docs.cypress.io/guides/guides/environment-variables.html#Option-1-configuration-file|Guide Here]]
+- During the test, you can access environment variables using `Cypress.env(key)`
+- There are five different ways to declare environment variables:
+1. In the configuration file (`cypress.json`)
+	- add an `env` key:
+	{{{json
+	  {
+		  "env": {
+			  "login_url": "/login"
+		  }
+	  }
+	}}}
+	- You would access this as `Cypress.env('login_url')`
+5. Creating a `cypress.env.json`
+6. Export as `CYPRESS_*`
+7. Pass in the CLI as `--env`
+8. Set an environment variable within the plugins
+9. Set the environment variable within test configuration
+	- You can also pass in the `env` to a given suite of tests (`describe`) or a single test (`it`):
+	{{{javascript
+	describe('test against Spanish site', {
+		env: {
+			language: 'es'
+		}
+	})
+	}}}
+
+== cy.task() ==
+[[https://docs.cypress.io/api/commands/task.html#Syntax|Documentation Here]]
+
+- Syntax:
+	- `ct.task(event)`
+	- `cy.task(event, arg)`
+	- `cy.task(event, arg, options)`
+
+- In the test:
+	{{{javascript
+	cy.task('log', 'This will be output to terminal')
+	}}}
+- In the plugins file (`plugins/index.js`):
+	{{{javascript
+	module.exports = (on, config) => {
+		on('task', {
+			log(message) {
+				console.log(message)
+					  
+				return null
+			  }
+		})
+	}
+	}}}
+	
+== Configuration ==
+- `pluginsFile`: `cypress/plugins/index.js`
+	- Path to the plugins file

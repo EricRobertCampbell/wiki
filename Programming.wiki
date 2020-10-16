@@ -7,6 +7,7 @@
 
 == Web Development ==
 === APIs ===
+[[auth0]]
 [[AWS|Amazon Web Services]]
 [[CGNDB|Canadian Geographical Names Database]]
 [[Google Maps and Places]]

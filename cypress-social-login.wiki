@@ -1,0 +1,2 @@
+= Cypress Social Logins =
+[[https://github.com/lirantal/cypress-social-logins|Homepage]]

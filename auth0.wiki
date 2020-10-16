@@ -1,0 +1,161 @@
+= auth0 =
+[[https://auth0.com/|Homepage]]
+
+== Getting Stated Videos ==
+[[https://auth0.com/docs/videos/get-started-series/|Videos]]
+- Tenant: an 'instance' of a user / group of users
+	- Use for different communities of users:
+		- Customers, users, admins
+		- Sales, support, shipping
+	- You can also use them for each phase:
+		- *Development*
+		- *Production*
+			- Only one tenant per company can be the production tenant
+			- Gets higher use limits than others (or can???)
+		- Testing
+	- Most companies only want one
+	- You can have as many as you want, but features may be limited based on the number you have and your tier
+	- Configure via the auth0 dashboard
+		- Login/Logout redirect URL can be set in the dashboard
+		- Inactivity timeout and Required login time
+- Provision users in a tenant
+	- Can be done through the dashboard
+	- Can be added by:
+		- Signing up on their own
+			- Database connection
+		- Signing in with a social media account
+			- Social connection
+		- From a trusted Enterprise Directory
+			- Business connection
+	- auth0 sits between the different login sources and the final application so your application only has to deal with auth0
+- Importing users
+	- Automatic and bulk migration
+	- Tool to authenticate users as they log in (so they don't need to reset their passwords, &c.)
+	- Batch migration lets you do all of the work at once
+	- auth0 Dashboard -> Connections -> Database Connection -> Create DB Connection
+- Authenticate
+	- Authentication: who you are
+		- Via social media or username/password
+		- MFA
+		- Consider: how many authentication avenues do you want? Single-factor or multi-factor?
+		- Might be a good idea to iterate and try different things
+	- Authorization:
+		- Whether they are allowed
+	- Access control:
+		- Controlling what the user can actually do
+	- OpenID Connect (OIDC):
+		- Used for single sign on (SSO)
+		- Based on OAUTH2
+		- JWT (JSON Web tokens)
+		- Login -> Redirect to login authority (the auth0 tenant), which then redirects to the application when authenticated
+			- If they've already logged in, it just redirects them at once
+		- Quickstart guides
+- Authenticate: an SPA example
+	- Login to a specific tenant before doing this
+	- Once authenticated, will redirect your user to the callback URL with an ID token or code to get it
+	- For a JWT, it returns more information
+	- Multiple applications on the same tenant -> automatic SSO
+- ID Tokens and Access Control
+	- Rule extensibility:
+		- Add custom claims to the OIDC token
+		- Will appear in the body of the token
+		- Can also return an Unauthorized error
+	- Need to decide:
+		- Coarse (yes/no) or fine (engineering, sales, marketing, admin...) control?
+		- Fine grained stuff should be added to the user metadata
+		- RBAC ( Rule-based access control ) - Assign users to roles (sales, marketing...), and then give different permission sets to the role
+- Get and Validate ID Tokens
+	- ID Token:
+		- Header
+		- Body
+			- name
+			- email
+		- Signature
+	- You must get the user's ID token once they are authenticated and then validate it periodically
+	- The user will be redirected to your callback URL with the token
+	- Custom claims should be namespaced by the URL or something
+	- ID Tokens are always JWT
+	- Access tokens are either JWT or an opaque string
+	- JWT is three strings, separated by dots	
+		- First is header
+		- Second is the body / payload
+			- name, email, expiration, ...
+		- Third is the signature
+	- The application needs to:
+		- Check the format (valid JWT?)
+			- Language should have something built in
+			- Should check 'aud', 'iss', 'exp', and 'nonce' at minumum
+		- Check that it contains the right claims
+			- name, email, picture, nonce, sub, iss (should match the auth0 openid configuration), aud (should match the client ID of the application), exp (unix timestamp: in the future!)
+		- Check that the signature is corred
+			- Use some sort of SDK to validate it
+- User Profiles
+	- Unique within a tentant
+	- Combines:
+		- information obtained via an Identity Provider
+		- auth0-specific information
+	- auth0 normalizes the different information gleaned from identity providers
+	- Use the dashboard or management api to muck about with users
+	- User profile is created / updated on login
+	- One profile / identity
+	- User metatdata:
+		- stored against a user profile and can read / update
+	- App metadata:
+		- Information stored by the app about the user; not directly viewable by the user
+	- Root attributes
+	- All aspects can be modified through the auth0 dashboard
+	- use the auth0 profile management api in production
+	- Dashboard -> users and Roles -> Create User
+	- Root attributes are set by auth0 or the identity provider
+	- Dashboard -> Connections -> Google:
+		- toggle 'Sync User Profile' to whatever you want
+- Branding the User Experience
+	- Your signup and login page should look like your company!
+	- Universal login:
+		- auth0's implementation of the login flow
+		- On authorize, redirect to the auth0 tenant
+		- Then redirect to the page to give them login options
+		- Customizing the universal login page will persist no matter how you change how the 
+		- Can also create a custom (vanity) url for the login page if you would like
+		- Dashboard (assume that you have an app) -> Universal Login -> Change the Logo, Primary colour, and background colour of the page
+		- The configure the tenant settings
+		- Vanity url: Tenant -> Custom domains -> ...
+			- You need to verify that you actually own the domain, so you have to add the `cname` record to the domain's DNS record
+			- Then verify!
+- Brand: Signup and Login Pages
+	- Dashboard -> Universal Login -> Settings
+	- Dashboard -> Universal Login -> Login
+		- You are now able to muck about with the HTML
+		- You can use version control to version control the code for your login page
+	- Dashboard -> Universal Login -> Signup
+		- Same thing
+- Brands: emails and error pages
+	- Dashboard -> Emails
+		- Look at the email template
+		- Change it as you wish!
+		- Support the liquid syntax (apparenly this is a thing)
+	- Custom email provider or provide credentials for an SMTP provider
+	- Supports (a bunch)
+	- Customizing error pages:
+		- Dashboard -> Find the tenant
+			- Can customize the page here
+			- Redirect to your own error page or customize the one that they use
+- Logout
+	- Terminating an authenticated session
+	- Auth0 stores the fact that they've logged in in a cookie
+	- To logout, redirect them to the logout endpoint for the tenant
+	- `returnTo` is apparently important?
+	- Configure the redirect url:
+		- At the tenant level
+		- Dashboard -> Applications (do it in the settings)
+	- When calling the logout endpoint you must include `client_id=application specific client id`
+	- Also the redirect url must be whitelisted
+	- Case sensitive after the host
+	- Federated logout?
+	- ATM, Auth0 does not log them out of every app
+		- You have to figure this out on your own
+	
+== Acronyms ==
+- MFA: Multi-factor authentication
+- OIDC: OpenID Connect
+- SSO (Single sign on): Sign in to one app, also signs you in for the others

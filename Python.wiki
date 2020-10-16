@@ -23,6 +23,7 @@
 [[Beautiful Soup]]
 [[csv]]
 [[Django]]
+[[pathlib]]
 [[pyKML]]
 [[re]]
 [[sys]]

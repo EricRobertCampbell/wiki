@@ -61,6 +61,7 @@
 		a # will print a
 		Question.objects.all() #will not show a - it's not in the DB anymore
 		}}}
+	- To delete all instances of a particular model (e.g. remove all data from the table): `MODEL.objects.all().delete()`
 		
 === Querying, Filtering, and Ordering ===
 ==== Ordering ====
@@ -98,6 +99,36 @@
 		- [[https://stackoverflow.com/questions/2642613/what-is-related-name-used-for-in-django|StackOverflow Example]]
 		- [[https://stackoverflow.com/questions/62303396/cant-get-the-value-of-onetoone-relationship-queries-in-graphene-django|StackOverflow - Related Fields Not Working]]
 - Many-to-Many
+- Use `models.ManyToManyField(fieldname)`
+- Then to add an object, you can use `.add()`
+- e.g.
+{{{python
+class Publication(models.Model):
+	title = models.CharField(max_length=300)
+	
+class Article(models.Model):
+	title = models.CharField(max_length=300)
+	publications = models.ManyToManyField(Publication)
+	
+# then...
+
+p1 = Publication(title="A Publication")
+p1.save()
+a1 = Article(title="An Article")
+a1.save()
+a1.publications.add(a1)
+}}}
+- You could also use the `.create` to create and add the publication at the same time
+{{{python
+new_publication = a2.publications(title="A Linked Publication")
+}}}
+
+- Each of the fields has access to the others:
+{{{python
+a1.publications.all()
+p1.article_set.all()
+}}}
+- NB: `Article` actually has an explicit `publications` field, which is why we don't need to worry about the `_set` business
 
 === Exceptions ===
 [[https://docs.djangoproject.com/en/3.1/ref/exceptions/|Reference]]
