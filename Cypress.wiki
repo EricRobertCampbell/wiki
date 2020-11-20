@@ -4,6 +4,16 @@
 == Installing ==
 `npm install cypress`
 
+== Test Template ==
+- Basic template for a test (`somestuff.spec.js` in the `cypress/tests` directory)
+{{{javascript
+describe('Something that I care about', () => {
+	it('Should do a thing', () => {
+		expect(true).to.equal(true);
+		})
+	})
+}}}
+
 == Running ==
 `npx cypress open`
 
@@ -16,6 +26,23 @@
 	  }
 	}}}
 	- Then we can run it with `npm run cypress:open`
+
+== Setting Up Tests ==
+{{{javascript
+describe('Something that is important', () => {
+		beforeEach(() => {
+		... something that should be run before EACH test
+				})
+		}
+}}}
+- `before(() => {})`:
+	- Run once before all of the tests in the suite
+- `beforeEach(() => {})`:
+	- Run before each test in the suite
+- `after(() => {})`:
+	- run after all test in the suite are completed
+- `afterEach(() => {})`:
+	- run after each test in the suite is completed
 
 == Command Line Tools ==
 [[https://docs.cypress.io/guides/guides/command-line.html#cypress-run|Documentation]]
@@ -113,6 +140,27 @@
 	}
 	}}}
 	
+== Network Requests ==
+{{{javascript
+cy.request(url)
+cy.request(url, body)
+cy.request(method, url)
+cy.request(method, url, body)
+cy.request(options)
+}}}
+	
 == Configuration ==
 - `pluginsFile`: `cypress/plugins/index.js`
 	- Path to the plugins file
+
+== Plugins and Extensions ==
+=== testing-library/cypress ===
+[[https://github.com/testing-library/cypress-testing-library|Github]]
+
+- Install with `npm install --save-dev @testing-library/cypress`
+- Add the following line to `cypress/support/commands.js`:
+	- `import @testing-library/cypress/add-commands`
+	- Now we can use all of the regular testing library commands!
+
+=== cypress-react-unit-test ===
+[[https://github.com/bahmutov/cypress-react-unit-test|Github]]

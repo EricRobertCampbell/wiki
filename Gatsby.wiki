@@ -1,0 +1,26 @@
+= Gatsby =
+[[https://www.gatsbyjs.com/|Homepage]]
+[[https://www.gatsbyjs.com/docs/|Docs]]
+
+== Getting Started ==
+
+- `gatsby new PROJECT_NAME` - create a new project
+- `gatsby develop` - starts the project development server (by default: http://localhost:8000`)
+	- If you would like to listen on the local IP address: `gatsby develop --host=0.0.0.0`
+- Any component defined in `/src/pages/*.js` will automatically become a page
+	- The name of the javascript file becomes the address of the page: e.g. `about.js` -> `/about`
+		- `404.js` is the 404 page!
+	- The default export from that page is the elementhat is rendered
+	- Route using the `Link` component
+		- `import { link } from "gatsby"`
+		- `<Link to="/contact/">Contact</Link>`
+		- Just for internal linking - for external just use `<a>`
+
+== Styling ==
+- import css files into `gatsby-browser.js` in the project root directory
+- You can also use css modules
+	- Automatically scoped
+	- Ends with `.module.css`
+
+== Plugins ==
+`gatsby-config.js`

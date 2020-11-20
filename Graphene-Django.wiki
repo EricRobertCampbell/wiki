@@ -1,0 +1,50 @@
+= Graphene-Django =
+[[https://docs.graphene-python.org/projects/django/en/latest/|Homepage]]
+
+Addition to [[Graphene]] to aid integration with [[Django]]
+
+== Installation ==
+`pip install graphene-django`
+
+== Adding Graphene to a Django Project ==
+1. Add the required stuff to `INSTALLED_APPS`: 
+   {{{python
+	 INSTALLED_APPS = [
+		 ...
+		 "django.contrib.staticfiles", #required for GraphiQL
+		 "graphene_django",
+	 ]
+   }}}
+2. Define the schema file (DJANGO_ROOT_DIRECTORY/schema.py)
+	{{{python
+	#schema.py
+	import graphene
+	
+	Class Query(graphene.ObjectType):
+		hello = graphene.String(default_value="Hi!")
+		
+	schema = graphene.Schema(query=Query)
+	}}}
+4. Add the graphql url to `urls.py`:
+	{{{python
+	from django.urls import path
+	from django.views.decorators.csrf import csrf_exempt
+	from graphene_django.views import GraphQLView
+	
+	urlpatterns = [
+		...
+		path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True)))
+	]
+	}}}
+	(Add in the `csrf_exempt` stuff if you get errors relating to it)
+5. Define the schema location for Graphene in the `settings.py` file:
+	{{{python
+	  GRAPHENE = {
+		  "SCHEMA": "{Django root (i.e. project name)}.schema.schema"
+	  }
+	}}}
+	
+	
+== Testing ==
+[[https://docs.graphene-python.org/projects/django/en/latest/testing/|Info Here]]
+[[https://docs.graphene-python.org/en/latest/testing/|More Info]]

@@ -1,0 +1,145 @@
+= Testing Notes =
+These are to try to capture what an effective application testing strategy is and the things that should be considered when deciding what to test.
+
+== Basics ==
+- Arrange, act, assert
+- Types of tests:
+	- Unit Test:
+		- One component in isolation
+		- Small, quick, 'easy'
+		- Generally run using [[Jest]] or whatnot
+	- Integration Tests
+		- Combine a series of modules and see that they all play nicely together
+		- E.g. test that a certain module in the application works
+	- End-to-end Tests
+		- Test the entirety of the application (frontend and backend) together
+		- Run in a browser (e.g. using [[Cypress]] or [[Puppeteer]])
+	- Smoke Testing
+		- Super quick - basically, does everything more-or-less look like its ok?
+		- Failed test -> broken system, but passed test !-> good system
+		- Analogy: If you glance over and see smoke, you know there's a fire. BUT there might be a small fire that you're missing. That's ok; its not the purpose of this kind of test
+		- Good use is to check that configs are good, the parts can communicate with each other, &c.
+- Alternatively:
+	- Black Box:
+		- Testing the functionality of the application without considering how it works
+		- Simply tests that a range of inputs give the correct response (or throw the right error or whatever)
+	- White / Clear Box
+		- Tests the implementation, not just the input / outputs
+
+== Basic Steps ==
+1. Functionality Testing
+	- Does the website actually work?
+	- Links work, functionality is correct, &c.
+2. Usability Testing
+	- Having a physical user go through the application the same way that a user would to ensure that the interface is fine and not misleading, &c.
+3. Interface Testing
+	- Ensure that all communication between the frontend and backend work correctly
+	- Should also test what happens when communication is interrupted or fails for whatever reason
+4. Compatibility Testing
+	- Ensure that it runs on a variety of devices, screen sizes, browsers, and operating systems
+5. Performance Testing
+	- Check that it actually is performant and responsive under the conditions that a user will experience
+	- Check the performance under heavy load
+	- Also check under slow internet speed and slow processing speed
+		- May shake out some race conditions!
+	- Try to find the breaking point for the app, and see if you can guard against it
+6. Security Testing
+	- Fabricate some malicious attacks and see that your app is resistant against them
+
+== Deciding What To Test ==
+- Create some use cases: What is the minimum that your application should be able to do?
+	- These sometimes look like user stories: 'The user wants to get a quote', 'the user wants to create a question', &c
+	- Consider the cost if something breaks: annoyance? Lost revenue? The whole application blows up in their face?
+- Once you have a use case, use it to develop a test case:
+	- Detailed list of steps that the user will take to accomplish their desired end, and the software's response to it
+	- This is basically the test that you end up writing, although at this stage it's mostly written in english instead of code
+	- Should detail the things that should (and should not!) be changed by the user's actions, including changes to the website and modifications to the backend db
+	- Should be scored according to how important that task is and the cost of not having it work
+- System integration tests
+	- Test the 'happy path' - if the user does what is expected of them, does the application work?
+	- What happens if they don't do what they're supposed to (random clicking, close in the middle of an operation, &c.)?
+		- Graceful error handling
+		- &c.
+	- Usability tests:
+		- Accessibility!
+			- What if they only navigate using the keyboard? Colour blindness? Actual blindness? Visual impairment? &c.
+		- New vs. experienced users: can both navigate the website? Can the experienced one skip the parts that aren't for them?
+
+== Creating a Testing Strategy / Document ==
+- Things to consider:
+	- Project risk: What are the things that'll scuttle us if they break?
+	- Tester skills
+	- Objectives (why even have tests?)
+	- Business Considerations
+- Things to have:
+	- Objectives
+	- Guidelines
+	- Approach
+	- Roles and responsibilities
+	- Levels of testing
+	- Requirements
+	- Deliverables
+	- Entry / Exit criteria
+	- Defect Management
+	- Test reports
+	- Test environment information
+	- Test constraints
+	- Test risk
+- Document should have:
+	- Scope:
+		- Who will review the document?
+		- Who will approve it?
+		- Testing activity, with timelines
+	- Test Approach
+		- Process of testing
+		- Testing levels
+		- Roles / Responsibilities of team members
+		- Types of testing
+		- Testing approach and automation tools (if nececssary)
+		- Bug fixes
+	- Test Environment
+		- Define the requirements and setup for each environment
+		- Backup of test data and restore strategy
+	- Release control
+		- Release management plans
+	- Risk Analysis
+		- List all of the risks that you can estimate
+		- Clear plan to mitigate risk, plus a contingency plan
+	- Reviews and approvals
+		- All these activities are reviewed and signed off by the business team, project management, development team, &c.
+		- Summary of review changes
+
+== The Individual Tests ==
+- Trust: is it trustworthy?
+	- Broken system -> broken test?
+	- Does a failed test tell me that the test is broken / outdated or that that system is actually broken?
+- Cost: What does it cost (time?) to build and maintain this test?
+	- Is the time spent building this test worth it?
+	- Maintainable and understandable tests!
+- Speed: How quickly does it run?
+	- Is running the these slowing deployment (in a bad way?)
+	- Consider putting a hard timeline on tests (e.g. altogether they will take less than ??? time)
+- Reliability: Is the test reliable?
+	- When run multiple times under the same conditions, does the test give a consistent result?
+- Targeted: Will the test point you in the right direction?
+	- Does a failed test point you in the direction of the thing that's broken?
+
+
+
+
+=== Sources ===
+- [[https://tms-outsource.com/blog/posts/web-application-testing/|tms-outsource]]
+	- Good level of detail, but seems to mostly recommend paid solutions
+- [[https://medium.com/scopedev/testing-strategies-for-modern-web-applications-71836e480cc6|scopedev]]
+	- Very good, including more depth into unit / integration / end-to-end testing
+- [[https://www.codemag.com/Article/0111071/Effective-Testing-Strategies|Code Magazine - Effective Testing Strategies]]
+	- Excellent detailed guide to how to decide what to test
+	- Also includes a list of further reading (mostly textbooks)
+- [[https://stackify.com/software-testing-tips/|Stackify - Software Testing Tips]]
+	- Lots of tips
+	- Linked articles are also very good
+- [[https://www.guru99.com/how-to-create-test-strategy-document.html|How to Create a Test Strategy Document]]
+	- Step-by-step guide, including a template document
+- [[https://medium.com/@abstarreveld/considerations-for-an-effective-test-automation-strategy-a5bd027b3fa3|How To Create An Effective Test Automation Strategy]]
+	- More about the attributes of successful tests
+	- Also a follow up article about putting it into practice

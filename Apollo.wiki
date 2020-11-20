@@ -1,4 +1,36 @@
 = Apollo =
+[[https://www.apollographql.com/|Homepage]]
+[[https://www.apollographql.com/docs/react/get-started/|Get Started]]
+
+== Installation and Setup ==
+`npm install @apollo/client graphql`
+
+- Create a client:
+{{{javascript
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+	uri: API_URI,
+	cache: new InMemoryCache(),
+})
+
+}}}
+
+- Set up a provider:
+{{{javascript
+import { ApolloProvider } from '@apollo/client';
+
+...
+
+<ApolloProvider client={client}>
+	...
+</ApolloProvider>
+}}}
+
+- Then you're ready to go!
+- Create queries (&c.) using `import gql from '@apollo/client'`
+
+== Notes ==
 - `useMutation(query)` (from @apollo/client) creates a mutation
 	- Not automatically fired
 	- Syntax:

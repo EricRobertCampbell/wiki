@@ -2,6 +2,11 @@
 Testing library!
 https://jestjs.io/docs/en/tutorial-react
 (When using `create-react-app`, you also need to install: `npm install --only=dev react-test-renderer`)
+- `npm install --save-dev jest`
+{{{javascript
+//stuff.test.js
+
+}}}
 
 - To test `file.js`, create the test in `file.test.js` or `file.spec.js`
 - `npm run test`
@@ -22,6 +27,8 @@ https://jestjs.io/docs/en/tutorial-react
 }}}
 - The `describe` block is the *test suite*, and the `test` or `it` block is the *test case*
 - ??? You can also sometimes use `expect(value).toBe(something)`
+- Create a todo with `test.todo('description')`
+	- Note: this will fail if you provide a function for it! You can only have the description, and then 
 - A *matcher* is a way to test different values. Some common ones:
 	- `.toBe()`: exact equality (basically equivalent to ==)
 	- `.toEqual()`: recursively checks each field of an object or array

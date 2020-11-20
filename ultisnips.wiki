@@ -2,3 +2,8 @@
 https://github.com/SirVer/ultisnips
 https://www.sirver.net/blog/2011/12/30/first-episode-of-ultisnips-screencast/
 
+
+- To have a default value:
+	{{{
+	${1:Default value}
+	}}}

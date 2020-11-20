@@ -159,3 +159,27 @@
 - MFA: Multi-factor authentication
 - OIDC: OpenID Connect
 - SSO (Single sign on): Sign in to one app, also signs you in for the others
+
+== Actually Doing It ==
+- Install the SDK: `npm install @auth0/auth0-react`
+- `import { Auth0Provider } from "@auth0/auth-react"`
+{{{javascript
+<Auth0Provider
+	domain={AUTH0_DOMAIN}
+	clientId={AUTH0_CLIENT_ID}
+	redirectUri={AUTH0_REDIRECT_URI}
+	audience="https://backendpoc/api"
+	scope="read:existence"
+	cacheLocation="localstorage" //default is in memory - more secure to have it in memory, but this way can help with testing
+>
+	<App />
+</Auth0Provider>
+}}}
+- You an use the `useAuth0()` hook to access a bunch of stuff
+- [[Once]] you have the `Auth0Provider`, you can use `loginWithRedirect()` from the `useAuth0()` hook - this will redirect them to the login page
+- 
+
+== Setting Up an API ==
+[[https://auth0.com/docs/get-started/set-up-apis|More Information]]
+- use the `Auth0Provider`, but now need the `scope` (= what it can do) and `audience` (= 'name' of the API - find it in Dashboard -> APIs)
+- `getAccessTokenSilently()` from `useAuth0()`

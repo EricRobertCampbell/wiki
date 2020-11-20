@@ -1,0 +1,3 @@
+= Git =
+
+- To remove git from a repository, just remove the `.git/` folder

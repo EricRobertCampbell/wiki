@@ -10,19 +10,43 @@ assert 1 + 1 == 2, "Should be 2"
 == `unittest` ==
 - Requires:
 	- tests into classes as methods
-	- Use a series of special assertion methings in the `unittest.TestCase` class
-- Common assertion methods:
+	- Use a series of special assertion things in the `unittest.TestCase` class
+- Basic test template:
+	{{{python
+	import unittest
+	
+	import THE THING YOU CARE ABOUT
+	
+	class TestSomething(unittest.TestCast):
+		def test_first_thing(self):
+			self.assert(something is true)
+		def test_second_thing(self):
+			self.assert(it works)
+	}}}
+- Common assertion methods [[https://docs.python.org/3/library/unittest.html#assert-methods|source]]:
 	- `.assertEqual(a, b)`: `a == b`
 	- `.assertNotEqual(a, b)`: `a != b`
 	- `.assertTrue(x)`: `x` is `True`
 	- `.assertFalse(x)`: `x` is `False`
 	- `.assertIs(a, b)`: `a is b`
+	- `.assertIsNot(a, b)`
 	- `.assertIsNone(a)`: `a is None`
+	- `.assertIsNotNone(a)`: `a is not None`
 	- `.assertIn(a, b)`: `a in b`
+	- `.assertNotIn(a, b)`: `a in b`
 	- `.assertIsInstance(a, b)`: `isinstance(a, b)`
+	- `.assertNotIsInstance(a, b)`: `not isinstance(a, b)`
+	- `.assertGreater(a, b)`
+	- `.assertGreaterEqual(a, b)`
+	- `.assertLess(a, b)`
+	- `.assertLessEqual(a, b)`
 - To test that an error was thrown:
 	{{{python
-	with self.assertRaise(TypeError):
+	with self.assertRaises(TypeError):
 		result = sum("banana")
 	}}}
 	- The test will now only pass if it raises a `TypeError`
+- To make the test more verbose, you can pass in the `--verbose` flag (or `--quiet` for the opposite)
+	- This will display the name of the test as well as the docstring
+	- `python -m unittest TEST_FILE --verbose`
+- 

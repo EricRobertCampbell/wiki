@@ -1,0 +1,23 @@
+ = dotenv =
+ [[https://github.com/theskumar/python-dotenv|Homepage]]
+ 
+ (Also you need to `import os`)
+ 
+ {{{python
+from dotenv import load_dotenv
+load_dotenv() #if the .env is in the same folder and named `.env`
+
+# with more verbosity
+from pathlib import Path
+env_path = Path('.') / '.env'
+load_dotenv(env_path)
+ 
+ SECRET_KEY = os.environ.get("SECRET_KEY")
+ DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
+ }}}
+ 
+ Then the `.env` file looks like
+{{{
+SECRET_KEY="1234"
+DATABASE_PASSWORD="password123"
+}}}

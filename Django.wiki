@@ -1,5 +1,8 @@
 = Django =
 
+== Installation ==
+[[https://www.djangoproject.com/|Homepage]]
+
 == Important Files ==
 - `manage.py` - lets you interact with the project
 - `settings.py` - settings for this project
@@ -179,3 +182,9 @@ p1.article_set.all()
 python manage.py makemigrations APP_NAME --> create the migration scheme
 python manage.py migrate --> actually do it
 }}}
+
+=== Testing ===
+`python manage.py test APP`
+
+You can also test a specific file or run a test suite inside a file:
+`python manage.py insurtech_backend.core.tests.test_queries.QuestionInstanceTest`

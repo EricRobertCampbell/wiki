@@ -1,1 +1,57 @@
  = Decorators =
+ 
+- Excellent tutorial [[https://realpython.com/primer-on-python-decorators/|here]]
+- Just a function that takes another function as an argument and does something with it
+- Use the `functools` library to avoid some problems
+ 	{{{python
+	def foo(func):
+		...
+	
+	@foo
+	def test(...):
+		...
+	}}}
+- The `@` notation is the same thing as `test = foo(test)`
+- General shape:
+	{{{python
+	import functools
+	
+	def decorator(func):
+		@functools.wraps(func)
+		def wrapper_decorator(*args, **kwargs):
+			#do something before
+			
+			value = func(*args, **kwargs)
+			
+			#do something after
+			
+			return value
+		return wrapper_decorator
+	}}}
+	
+- To create a decorator that takes an argument, you basically need another level of function created (so basically the outer wrapper returns a regular (no-argument) decorator that does something with the passed in argument)
+- Creates a closure with the passed in argument
+{{{python
+def arg_wrapper(arg):
+	def inner(func):
+		@functools.wraps(func)
+		def another_inner(*args, **kwargs):
+			...
+			do something with the arg here
+			...
+	return inner
+}}}
+
+- You can also create a wrapper that optionally takes in an argument:
+{{{python
+def name(_func=None, *, the rest of the args):
+	def decorator_name(func):
+		...
+	
+	if _func == None:
+		return decorator_name
+	else:
+		return decorator_name(_func)
+}}}
+- Then this can be called as `@name` or `@name(foo='bar')`
+	

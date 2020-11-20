@@ -1,4 +1,5 @@
 = Error Catching =
+[[https://docs.python.org/3/library/exceptions.html|Reference]]
 
 {{{python
 try:
@@ -15,3 +16,33 @@ try:
 except (ExceptionOne, ExceptionTwo) as e: #the `as e` is optional
 	...
 }}}
+
+- To throw an exception: `raise Exception("message")`
+
+== Types of Exception ==
+=== Base Classes ===
+- `Exception`
+- `ArithmeticError`
+- `BufferError`
+- `LookupError`
+
+=== Concrete Exceptions ===
+These are the ones that are normally thrown
+
+- `AssertionError`
+- `AttributeError`:
+	- When an attribute reference or assignment fails e.g. `object.property = 5`
+- `EOFError`
+- `GeneratorExit`
+- `IndexError`:
+	- When something that takes an index receives an invalid one
+- `KeyError`:
+	- When a key is not found
+- `KeyboardInterrupt`:
+	- When the user hits the interrupt key
+- `TypeError`:
+	- An operation or function is applied to something of an inappropriate type
+- `ValueError`:
+	- Operation (&c.) is applied to something of the right type, but which has an inappropriate value
+- `ZeroDivisionError`:
+	- When the second argument of a division or modulo operation is zero
